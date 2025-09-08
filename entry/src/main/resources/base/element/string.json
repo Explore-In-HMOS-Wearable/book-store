@@ -1,0 +1,68 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "internet",
+      "value": "internet"
+    },
+    {
+      "name": "books",
+      "value": "Books"
+    },
+    {
+      "name": "games",
+      "value": "Games"
+    },
+    {
+      "name": "noway",
+      "value": "No way!"
+    },
+    {
+      "name": "choosebooks",
+      "value": "Choose books!"
+    },
+    {
+      "name": "catchme",
+      "value": "Catch Me!"
+    },
+    {
+      "name": "nicetry",
+      "value": "Nice try!"
+    },
+    {
+      "name": "oopss",
+      "value": "Oops!"
+    },
+    {
+      "name": "splash_text",
+      "value": "Read More, Learn More!"
+    },
+    {
+      "name": "bookofday",
+      "value": "Book of the Day"
+    },
+    {
+      "name": "name",
+      "value": "googleapis"
+    },
+    {
+      "name": "baseurl",
+      "value": ".com/books/v1/"
+    },
+    {
+      "name": "url",
+      "value": ".com/books/v1/volumes?q=apivolumes?q=api&fields=items(volumeInfo/title,volumeInfo/pageCount,volumeInfo/imageLinks/smallThumbnail,volumeInfo/description,volumeInfo/categories)"
+    }
+  ]
+}
