@@ -1,0 +1,24 @@
+{
+  "routerMap": [
+    {
+      "name": "HomePage",
+      "pageSourceFile": "src/main/ets/pages/HomePage.ets",
+      "buildFunction": "HomePageBuilder"
+    },
+    {
+      "name": "BooksPage",
+      "pageSourceFile": "src/main/ets/pages/BooksPage.ets",
+      "buildFunction": "BooksPageBuilder"
+    },
+    {
+      "name": "BookDetailPage",
+      "pageSourceFile": "src/main/ets/pages/BookDetailPage.ets",
+      "buildFunction": "BookDetailPageBuilder"
+    },
+    {
+      "name": "BookOfDayPage",
+      "pageSourceFile": "src/main/ets/pages/BookOfDayPage.ets",
+      "buildFunction": "BookOfDayPageBuilder"
+    }
+  ]
+}

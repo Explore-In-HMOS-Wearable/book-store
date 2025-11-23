@@ -1,5 +1,4 @@
 import BookModel from '../model/BookModel';
-import { router } from '@kit.ArkUI';
 import BookService from '../model/BookService';
 
 @Observed
@@ -47,23 +46,17 @@ export class HomeViewModel {
     return this.responses[index]
   }
 
-  async fetchBooks() {
-    this.allBooks = await BookService.getBooks();
-    console.info('HomeViewModel Books:', JSON.stringify(this.allBooks, null, 3));
-  }
+  async fetchBooks(uiContext?: UIContext) {
+    if (!uiContext) {
+      console.error('UIContext is undefined. Cannot fetch books.');
+      return;
+    }
 
-  showRandomBook() {
-    const randomIndex = Math.floor(Math.random() * this.allBooks.length);
-    this.currentBook = this.allBooks[randomIndex];
-    router.pushUrl({
-      url: 'pages/BookOfDayPage',
-      params: {
-        title: this.currentBook.title,
-        pageCount: this.currentBook.pageCount,
-        image: this.currentBook.image,
-        description: this.currentBook.description,
-        categories: this.currentBook.categories,
-      }
-    })
+    try {
+      this.allBooks = await BookService.getBooks(uiContext);
+      console.info('HomeViewModel Books:', JSON.stringify(this.allBooks, null, 3));
+    } catch (err) {
+      console.error('Failed to fetch books:', JSON.stringify(err));
+    }
   }
 }

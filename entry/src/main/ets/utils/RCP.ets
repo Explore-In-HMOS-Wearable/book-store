@@ -1,16 +1,18 @@
 import { rcp } from '@kit.RemoteCommunicationKit';
-import { BASE_URL } from './Constants';
+import { getBaseUrl } from './Constants';
 
-
-function sessionConfig(): rcp.SessionConfiguration {
+function sessionConfig(uiContext: UIContext): rcp.SessionConfiguration {
   return {
-    baseAddress: BASE_URL
-  }
+    baseAddress: getBaseUrl(uiContext)
+  };
 }
 
-export function getHttp(url: string) {
-  const session = rcp.createSession(sessionConfig());
-  return session.get(`${url}`).then((res) => res.toJSON()).finally(() => {
-    session.close();
-  });
+export async function getHttp(uiContext: UIContext, url: string) {
+  const session = rcp.createSession(sessionConfig(uiContext))
+  try {
+    const res = await session.get(url)
+    return res.toJSON()
+  } finally {
+    session.close()
+  }
 }

@@ -16,8 +16,17 @@ export class BookViewModel {
     return BookViewModel._instance;
   }
 
-  async fetchBooks() {
-    this.allBooks = await BookService.getBooks();
-    console.info('BookViewModel Books:', JSON.stringify(this.allBooks, null, 3));
+  async fetchBooks(uiContext?: UIContext) {
+    if (!uiContext) {
+      console.error('UIContext is undefined. Cannot fetch books.')
+      return;
+    }
+
+    try {
+      this.allBooks = await BookService.getBooks(uiContext);
+      console.info('BookViewModel Books:', JSON.stringify(this.allBooks, null, 3))
+    } catch (err) {
+      console.error('Failed to fetch books:', JSON.stringify(err))
+    }
   }
 }

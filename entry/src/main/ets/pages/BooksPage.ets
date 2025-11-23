@@ -1,24 +1,26 @@
 import { BookCardComponent } from '../component/BookCardComponent'
 import { BookViewModel } from '../viewmodel/BookViewModel';
 import BookModel from '../model/BookModel';
-import { router } from '@kit.ArkUI';
+
+@Builder
+export function BooksPageBuilder() {
+  BooksPage()
+}
 
 @Entry
 @Component
-struct HomePage {
+struct BooksPage {
   scroller: Scroller = new Scroller()
   @State viewModel: BookViewModel = BookViewModel.instance;
+  @Consume('mainStack') pathStack: NavPathStack;
 
   // get  books when open the page
   aboutToAppear() {
-    this.viewModel.fetchBooks()
+    this.viewModel.fetchBooks(this.getUIContext())
   }
 
   build() {
-
-    Column() {
-      Text($r('app.string.books'))
-
+    NavDestination() {
       Scroll(this.scroller) {
         Column() {
           ForEach(this.viewModel.allBooks, (book: BookModel, index: number) => {
@@ -29,23 +31,16 @@ struct HomePage {
               categories: book.categories
             }).padding({ bottom: 4 })
               .onClick(() => {
-                router.pushUrl(
-                  {
-                    url: 'pages/BookDetailPage',
-                    // send the data with params
-                    params: {
-                      title: book.title,
-                      image: book.image,
-                      description: book.description
-                    }
-                  }
-                )
+                this.pathStack.pushPath({
+                  name: 'BookDetailPage',
+                  param: book
+                })
               })
             Divider().height(2).color(0xCCCCCC).padding({ left: 40, right: 40, bottom: 10 });
           }, (item: string, index: number) => item)
-        }.padding({ bottom: 25 })
+        }.padding({ bottom: 15, top: 15 })
       }.width('100%').height('100%')
-    }.backgroundColor(Color.Black).padding({ top: 10, bottom: 10 }).width('100%').height('100%')
-
+    }
+    .hideBackButton(true)
   }
 }

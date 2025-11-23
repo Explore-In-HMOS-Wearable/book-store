@@ -1,4 +1,4 @@
-import { router, curves } from '@kit.ArkUI';
+import { curves } from '@kit.ArkUI';
 
 @Entry
 @Component
@@ -7,6 +7,7 @@ struct Index {
   @State imageTranslateY: number = 300;
   @State textOffsetY: number = -50;
   @State textOpacity: number = 0;
+  @Provide('mainStack') pathStack: NavPathStack = new NavPathStack()
 
   aboutToAppear() {
     setTimeout(() => {
@@ -19,8 +20,8 @@ struct Index {
     }, 300);
 
     this.timerId = setTimeout(() => {
-      router.pushUrl({
-        url: 'pages/HomePage',
+      this.pathStack.pushPath({
+        name: 'HomePage'
       });
     }, 3000);
   }
@@ -32,36 +33,38 @@ struct Index {
   }
 
   build() {
-    Stack() {
-      Column() {
-        Text($r('app.string.splash_text'))
-          .fontColor(Color.White)
-          .fontSize(16)
-          .fontWeight(FontWeight.Bold)
-          .translate({ y: this.textOffsetY })
-          .opacity(this.textOpacity)
-          .animation({
-            curve: curves.initCurve(),
-            iterations: 1,
-            duration: 800,
-            playMode: PlayMode.Normal,
-          })
+    Navigation(this.pathStack) {
+      Stack() {
+        Column() {
+          Text($r('app.string.splash_text'))
+            .fontColor(Color.White)
+            .fontSize(16)
+            .fontWeight(FontWeight.Bold)
+            .translate({ y: this.textOffsetY })
+            .opacity(this.textOpacity)
+            .animation({
+              curve: curves.initCurve(),
+              iterations: 1,
+              duration: 800,
+              playMode: PlayMode.Normal,
+            })
 
-        Image($r('app.media.splash'))
-          .height('35%')
-          .borderRadius(10)
-          .translate({ y: this.imageTranslateY })
-          .animation({
-            curve: curves.initCurve(),
-            iterations: 1,
-            duration: 1000,
-            playMode: PlayMode.Normal,
-          })
+          Image($r('app.media.splash'))
+            .height('35%')
+            .translate({ y: this.imageTranslateY })
+            .animation({
+              curve: curves.initCurve(),
+              iterations: 1,
+              duration: 1000,
+              playMode: PlayMode.Normal,
+            })
+        }
+        .align(Alignment.Center)
       }
-      .align(Alignment.Center)
+      .width('100%')
+      .height('100%')
+      .backgroundColor(Color.Black)
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor(Color.Black)
+    .hideTitleBar(true)
   }
 }

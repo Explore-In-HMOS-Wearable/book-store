@@ -51,6 +51,7 @@
         "name" : "ohos.permission.INTERNET",
         "reason": "$string:internet"
       }
-    ]
+    ],
+    "routerMap": "$profile:route_map"
   }
 }
